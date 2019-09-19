@@ -5,7 +5,8 @@ import {
   View,
   TextInput,
   KeyboardAvoidingView,
-  AsyncStorage
+  AsyncStorage,
+  BackHandler
 } from "react-native";
 import { Image, Button } from "react-native-elements";
 import { http } from "../../Service/auth";
@@ -23,7 +24,6 @@ export default class Login extends Component {
     };
   }
 
-  componentDidMount() { }
 
   static navigationOptions = {
     header: null
