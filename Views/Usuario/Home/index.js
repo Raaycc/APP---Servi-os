@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, BackHandler } from 'react-native'
+import { Text, View, BackHandler, StatusBar } from 'react-native'
 
 export default class index extends Component {
 
@@ -29,8 +29,12 @@ export default class index extends Component {
 
     render() {
         return (
-            <View>
-                <Text> Longado </Text>
+            <View styles={{ margin: 100 }}>
+                <StatusBar backgroundColor={'red'} barStyle={'dark-content'} translucent={false} />
+                <View style={{ flex: 1, alignContent: "center", justifyContent: "center" }}>
+                    <Text> Longado 222</Text>
+                </View>
+
             </View>
         )
     }

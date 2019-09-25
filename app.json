@@ -20,6 +20,10 @@
     "ios": {
       "supportsTablet": true
     },
-    "description": "only work"
+    "android": {
+      "versionCode": 32,
+      "package": "com.rayc.app"
+    },
+    "description": "rnc"
   }
 }

@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { Image, Button } from "react-native-elements";
 import { http } from "../../Service/auth";
+import InputDefault from "../../Components/Inputs/InputDefault";
 // import { Container } from './styles';
 
 export default class Login extends Component {
@@ -56,12 +57,6 @@ export default class Login extends Component {
     this.props.navigation.navigate(rota);
   };
 
-
-  //<Image
-  //         style={{ width: 260, height: 160 }}
-  //         source={require("../../assets/Design.png")}
-  //       />
-
   render() {
     return (
       <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
@@ -70,42 +65,20 @@ export default class Login extends Component {
         >
 
           <View>
-            <TextInput
-              style={styles.inputLogin}
-              placeholder="Login"
-              onChangeText={text => this.setState({ login: text })}
-              value={this.state.login}
-            />
-            <TextInput
-              style={styles.inputLogin}
-              placeholder="Senha"
-              secureTextEntry={true}
-              onChangeText={text => this.setState({ senha: text })}
-              value={this.state.senha}
-            />
+            <InputDefault nome="Login" value={this.state.login} onChange={(value) => this.setState({ login: value })} senha={false} />
+            <InputDefault nome="Senha" value={this.state.senha} onChange={(value) => this.setState({ senha: value })} senha={true} />
             <Button
-              buttonStyle={{
-                marginTop: 20,
-                borderRadius: 10,
-                backgroundColor: "#FF6700",
-                height: 50
-              }}
+              buttonStyle={[styles.buttonLogin, { backgroundColor: "#FF6700" }]}
               titleStyle={{ fontSize: 21 }}
               title="Login"
-              onPress={() => this.fazerLogin()}
+              onPress={() => this.mudarRota("HomeUsuario")}
             />
             <Button
-              buttonStyle={{
-                marginTop: 20,
-                borderRadius: 10,
-                borderColor: "#FF6700",
-                height: 50,
-                borderWidth: 1
-              }}
+              buttonStyle={styles.buttonLogin}
               titleStyle={{ fontSize: 21, color: "#FF6700" }}
               type="outline"
               title="Criar Conta"
-              onPress={() => this.mudarRota("Criar")}
+              onPress={() => this.mudarRota("Cadastrar")}
             />
           </View>
         </View>
@@ -120,19 +93,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  inputLogin: {
-    height: 50,
-    borderColor: "gray",
-    borderWidth: 1,
-    marginTop: 20,
-    textAlign: "center",
-    borderRadius: 10,
-    fontSize: 21,
-    borderColor: "#FF6700",
-    borderWidth: 1
-  },
   viewLogin: {
-    minWidth: "60%",
+    minWidth: "70%",
     backgroundColor: "#fff",
     padding: 25,
     borderRadius: 20,
@@ -146,5 +108,12 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+  },
+  buttonLogin: {
+    marginTop: 20,
+    borderRadius: 10,
+    borderColor: "#FF6700",
+    height: 50,
+    borderWidth: 1
   }
 });

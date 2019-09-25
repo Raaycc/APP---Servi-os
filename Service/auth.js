@@ -9,7 +9,7 @@ export const desLogar = async () => {
     await AsyncStorage.removeItem("token");
 };
 
-export const api = "https://api.sae.bet/";
+export const api = "https://powerful-brook-93789.herokuapp.com/";
 
 const http = axios.create({
     baseURL: api
