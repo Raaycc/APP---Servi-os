@@ -1,10 +1,13 @@
-import React, {Component} from 'react';
-import {Text, View, BackHandler} from 'react-native';
+import React from 'react';
+import {Text, View, BackHandler, StyleSheet} from 'react-native';
+import {Colors, Searchbar, withTheme} from 'react-native-paper';
 
-export default class Home extends Component {
+class Home extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      query: '',
+    };
     this.backButtonClick = this.backButtonClick.bind(this);
   }
   componentWillMount = async () => {
@@ -24,12 +27,35 @@ export default class Home extends Component {
   };
 
   render() {
+    const {
+      theme: {
+        colors: {background},
+      },
+    } = this.props;
     return (
       <>
-        <View>
+        <View style={[styles.container, {backgroundColor: background}]}>
+          <Searchbar
+            placeholder="Search"
+            onChangeText={query => this.setState({firstQuery: query})}
+            value={this.state.query}
+            style={styles.searchbar}
+          />
           <Text> FAZER A LISTAGEM DE SERVICOS EM ALTA</Text>
         </View>
       </>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: Colors.grey200,
+  },
+  searchbar: {
+    margin: 4,
+  },
+});
+
+export default withTheme(Home);
