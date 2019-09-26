@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {BottomNavigation, Text} from 'react-native-paper';
+import {BottomNavigation} from 'react-native-paper';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import Home from '../../Views/Usuario/Home';
 import Perfil from '../../Views/Usuario/Perfil';
 import Contrato from '../../Views/Usuario/Contrato';
@@ -10,9 +11,14 @@ export default class Layout extends React.Component {
     index: 0,
     routes: [
       {key: 'home', title: 'Home', icon: 'home', color: '#FF6700'},
-      {key: 'chat', title: 'Chat', icon: 'album', color: '#FF6700'},
-      {key: 'contratos', title: 'Contratos', icon: 'history', color: '#FF6700'},
-      {key: 'perfil', title: 'Perfil', icon: 'history', color: '#FF6700'},
+      {key: 'chat', title: 'Chat', icon: 'chat', color: '#FF6700'},
+      {
+        key: 'contratos',
+        title: 'Contratos',
+        icon: 'archive',
+        color: '#FF6700',
+      },
+      {key: 'perfil', title: 'Perfil', icon: 'person', color: '#FF6700'},
     ],
   };
 
