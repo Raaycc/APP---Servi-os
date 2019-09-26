@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Text, View, BackHandler} from 'react-native';
+import Header from '../../../Components/Header/Header';
 
-export default class Home extends Component {
+export default class Chat extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -27,7 +28,8 @@ export default class Home extends Component {
     return (
       <>
         <View>
-          <Text> FAZER A LISTAGEM DE SERVICOS EM ALTA</Text>
+          <Header />
+          <Text> FAZER O CHAT</Text>
         </View>
       </>
     );

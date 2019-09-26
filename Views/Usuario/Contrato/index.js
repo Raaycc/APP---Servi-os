@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Text, View, BackHandler} from 'react-native';
 
-export default class Home extends Component {
+export default class Contrato extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -27,7 +27,7 @@ export default class Home extends Component {
     return (
       <>
         <View>
-          <Text> FAZER A LISTAGEM DE SERVICOS EM ALTA</Text>
+          <Text> FAZER A LISTAGEM DE CONTRATOS</Text>
         </View>
       </>
     );
