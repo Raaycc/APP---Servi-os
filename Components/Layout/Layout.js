@@ -11,7 +11,7 @@ export default class Layout extends React.Component {
     index: 0,
     routes: [
       {key: 'home', title: 'Home', icon: 'home', color: '#FF6700'},
-      {key: 'chat', title: 'Chat', icon: 'chat', color: '#FF6700'},
+      {key: 'chat', title: 'Chat', icon: 'chat-bubble', color: '#FF6700'},
       {
         key: 'contratos',
         title: 'Contratos',
