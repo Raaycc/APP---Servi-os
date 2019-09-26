@@ -28,7 +28,7 @@ export default class Chat extends Component {
     return (
       <>
         <View>
-          <Header />
+          <Header title="Chat" subtitle="Pra conversar" />
           <Text> FAZER O CHAT</Text>
         </View>
       </>
