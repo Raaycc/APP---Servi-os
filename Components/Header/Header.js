@@ -11,13 +11,14 @@ export default class Header extends React.Component {
   render() {
     return (
       <Appbar.Header style={{backgroundColor: '#FF6700'}}>
-        <Appbar.BackAction onPress={this._goBack} />
+        <Appbar.BackAction onPress={this._goBack} color="white" />
         <Appbar.Content
           title="Título do Header"
           subtitle="Subtítulo do Header"
+          color="white"
         />
-        <Appbar.Action icon="search" onPress={this._onSearch} />
-        <Appbar.Action icon="more-vert" onPress={this._onMore} />
+        <Appbar.Action icon="search" onPress={this._onSearch} color="white" />
+        <Appbar.Action icon="more-vert" onPress={this._onMore} color="white" />
       </Appbar.Header>
     );
   }
