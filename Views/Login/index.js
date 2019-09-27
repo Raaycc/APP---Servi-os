@@ -20,7 +20,7 @@ export default class Login extends Component {
     this.state = {
       loading: false,
       text: '',
-      login: 'teste',
+      login: 'antonylrds@gmail.com',
       senha: '123',
     };
   }
@@ -32,18 +32,11 @@ export default class Login extends Component {
   fazerLogin = async () => {
     try {
       const response = await http.post('login', {
-        codigo: '0001',
-        login: this.state.login,
+        email: this.state.login,
         password: this.state.senha,
       });
       console.log(response.data);
       if (response.status === 200) {
-        const {token, usuario} = response.data;
-        const {nivel} = usuario;
-
-        await AsyncStorage.setItem('nivel', nivel);
-        await AsyncStorage.setItem('token', token);
-        await AsyncStorage.setItem('usuario', JSON.stringify(usuario));
         this.props.navigation.navigate('Inicio');
       }
     } catch (e) {
@@ -77,7 +70,7 @@ export default class Login extends Component {
               buttonStyle={[styles.buttonLogin, {backgroundColor: '#FF6700'}]}
               titleStyle={{fontSize: 21}}
               title="Login"
-              onPress={() => this.mudarRota('Inicio')}
+              onPress={() => this.fazerLogin()}
             />
             <Button
               buttonStyle={styles.buttonLogin}

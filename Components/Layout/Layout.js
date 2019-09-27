@@ -1,6 +1,5 @@
 import * as React from 'react';
 import {BottomNavigation} from 'react-native-paper';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import Home from '../../Views/Usuario/Home';
 import Perfil from '../../Views/Usuario/Perfil';
 import Contrato from '../../Views/Usuario/Contrato';

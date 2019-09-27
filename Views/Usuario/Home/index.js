@@ -8,18 +8,18 @@ class Home extends React.Component {
     this.state = {
       query: '',
     };
-    this.backButtonClick = this.backButtonClick.bind(this);
+    // this.backButtonClick = this.backButtonClick.bind(this);
   }
   componentWillMount = async () => {
-    BackHandler.addEventListener('hardwareBackPress', this.backButtonClick);
+    // BackHandler.addEventListener('hardwareBackPress', this.backButtonClick);
   };
 
   componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.backButtonClick);
+    // BackHandler.removeEventListener('hardwareBackPress', this.backButtonClick);
   }
 
   backButtonClick = () => {
-    return true;
+    return false;
   };
 
   static navigationOptions = {

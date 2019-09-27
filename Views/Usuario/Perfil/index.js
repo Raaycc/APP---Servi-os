@@ -18,14 +18,17 @@ export default class Perfil extends React.Component {
         <Divider />
         <List.Item
           title="E-mail"
+          description="joaokleber@gmail.com"
           left={() => <List.Icon color="#F59656" icon="email" />}
         />
         <List.Item
           title="CPF"
+          description="123.456.789-12"
           left={() => <List.Icon color="#F59656" icon="contacts" />}
         />
         <List.Item
           title="Telefone"
+          description="(88) 9 98987676"
           left={() => <List.Icon color="#F59656" icon="phone" />}
         />
         <List.Item
@@ -39,6 +42,10 @@ export default class Perfil extends React.Component {
         <List.Item
           title="Configurações"
           left={() => <List.Icon color="#F59656" icon="settings" />}
+        />
+        <List.Item
+          title="Sair"
+          left={() => <List.Icon color="#F59656" icon="exit-to-app" />}
         />
       </List.Section>
     );

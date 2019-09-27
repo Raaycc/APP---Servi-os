@@ -7,7 +7,9 @@ export default class Header extends React.Component {
     subtitle: this.props.subtitle,
   };
 
-  _goBack = () => console.log('Went back');
+  _goBack = () => {
+    this.props.navigation.goBack();
+  };
 
   render() {
     return (
