@@ -1,42 +1,64 @@
-import * as React from 'react';
-import {BottomNavigation} from 'react-native-paper';
+import React from 'react';
+import {createAppContainer} from 'react-navigation';
+import {createBottomTabNavigator} from 'react-navigation-tabs';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import Home from '../../Views/Usuario/Home';
 import Perfil from '../../Views/Usuario/Perfil';
 import Contrato from '../../Views/Usuario/Contrato';
 import Chat from '../../Views/Usuario/Chat';
 
 export default class Layout extends React.Component {
-  state = {
-    index: 0,
-    routes: [
-      {key: 'home', title: 'Home', icon: 'home', color: '#FF6700'},
-      {key: 'chat', title: 'Chat', icon: 'chat-bubble', color: '#FF6700'},
-      {
-        key: 'contratos',
-        title: 'Contratos',
-        icon: 'archive',
-        color: '#FF6700',
-      },
-      {key: 'perfil', title: 'Perfil', icon: 'person', color: '#FF6700'},
-    ],
-  };
-
-  _handleIndexChange = index => this.setState({index});
-
-  _renderScene = BottomNavigation.SceneMap({
-    home: Home,
-    chat: Chat,
-    contratos: Contrato,
-    perfil: Perfil,
-  });
-
   render() {
-    return (
-      <BottomNavigation
-        navigationState={this.state}
-        onIndexChange={this._handleIndexChange}
-        renderScene={this._renderScene}
-      />
-    );
+    console.log(this.props);
+    return <AppContainer />;
   }
 }
+
+const bottomTabNavigator = createBottomTabNavigator(
+  {
+    Home: {
+      screen: Home,
+      navigationOptions: {
+        tabBarIcon: ({tintColor}) => (
+          <Icon name="home" size={25} color={tintColor} />
+        ),
+      },
+    },
+    Chat: {
+      screen: Chat,
+      navigationOptions: {
+        tabBarIcon: ({tintColor}) => (
+          <Icon name="comments" size={25} color={tintColor} />
+        ),
+      },
+    },
+    Contrato: {
+      screen: Contrato,
+      navigationOptions: {
+        tabBarIcon: ({tintColor}) => (
+          <Icon name="inbox" size={25} color={tintColor} />
+        ),
+      },
+    },
+    Perfil: {
+      screen: Perfil,
+      navigationOptions: {
+        tabBarIcon: ({tintColor}) => (
+          <Icon name="user" size={25} color={tintColor} />
+        ),
+      },
+    },
+  },
+  {
+    initialRouteName: 'Home',
+    tabBarOptions: {
+      style: {
+        backgroundColor: '#FF6700',
+      },
+      inactiveTintColor: '#F9B98E',
+      activeTintColor: '#eee',
+    },
+  },
+);
+
+const AppContainer = createAppContainer(bottomTabNavigator);

@@ -6,7 +6,6 @@ export default class Inicio extends Component {
   static navigationOptions = {
     header: null,
   };
-
   render() {
     return (
       <>

@@ -1,16 +1,18 @@
 import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import Login from './Views/Login';
-import Home from './Views/Usuario/Home';
 import Cadastrar from './Views/Cadastrar';
 import Inicio from './Views/Usuario';
+import Home from './Views/Usuario/Home';
+import Prestador from './Views/Usuario/Prestador';
 
 const AppNavigator = createStackNavigator(
   {
     Login: Login,
-    Inicio: Inicio,
-    HomeUsuario: Home,
     Cadastrar: Cadastrar,
+    Inicio: Inicio,
+    Home: Home,
+    Prestador: Prestador,
   },
   {
     initialRouteName: 'Login',
