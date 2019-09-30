@@ -2,7 +2,6 @@ import React from 'react';
 import {View, BackHandler, StyleSheet, ScrollView, Image} from 'react-native';
 import {
   Colors,
-  Searchbar,
   List,
   Text,
   Chip,
@@ -13,6 +12,7 @@ import {
 
 class Prestador extends React.Component {
   render() {
+    console.log('PRESTADORRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR');
     const {
       theme: {
         colors: {background},

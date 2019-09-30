@@ -9,9 +9,9 @@ import Prestador from './Views/Usuario/Prestador';
 const AppNavigator = createStackNavigator(
   {
     Login: Login,
-    Inicio: Inicio,
-    HomeUsuario: Home,
     Cadastrar: Cadastrar,
+    Inicio: Inicio,
+    Home: Home,
     Prestador: Prestador,
   },
   {
