@@ -9,7 +9,7 @@ import {
   BackHandler,
 } from 'react-native';
 import {Image, Button} from 'react-native-elements';
-import {http} from '../../Service/auth';
+import {http, logar} from '../../Service/auth';
 import InputDefault from '../../Components/Inputs/InputDefault';
 // import { Container } from './styles';
 
@@ -36,6 +36,7 @@ export default class Login extends Component {
         password: this.state.senha,
       });
       console.log(response.data);
+      logar(response.data);
       if (response.status === 200) {
         this.props.navigation.navigate('Inicio');
       }

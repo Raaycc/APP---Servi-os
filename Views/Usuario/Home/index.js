@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, BackHandler, StyleSheet, ScrollView, Image} from 'react-native';
+import {
+  View,
+  BackHandler,
+  StyleSheet,
+  ScrollView,
+  Image,
+  AsyncStorage,
+} from 'react-native';
 import {
   Colors,
   Searchbar,
@@ -10,12 +17,14 @@ import {
   withTheme,
   IconButton,
 } from 'react-native-paper';
+import {http} from '../../../Service/auth';
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       query: '',
+      servicos: [],
     };
     // this.backButtonClick = this.backButtonClick.bind(this);
   }
@@ -27,6 +36,19 @@ class Home extends React.Component {
     // BackHandler.removeEventListener('hardwareBackPress', this.backButtonClick);
   }
 
+  async componentDidMount() {
+    // await http
+    //   .get('servico/listar')
+    //   .then(servicos => {
+    //     this.setState({servicos});
+    //     console.log(servicos);
+    //   })
+    //   .catch(e => {
+    //     alert('Não foi possível carregar os serviços');
+    //     console.log(e);
+    //   });
+  }
+
   backButtonClick = () => {
     return false;
   };
@@ -36,7 +58,8 @@ class Home extends React.Component {
   };
 
   mudarRota = rota => {
-    this.props.navigation.navigate(rota);
+    console.log(this.props);
+    this.props.navigation.navigate('Prestador');
   };
 
   render() {

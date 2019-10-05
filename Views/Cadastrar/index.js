@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, KeyboardAvoidingView} from 'react-native';
+import {StyleSheet, View, KeyboardAvoidingView, ScrollView} from 'react-native';
 import {Button} from 'react-native-elements';
 import {http} from '../../Service/auth';
 import InputDefault from '../../Components/Inputs/InputDefault';
@@ -28,16 +28,6 @@ export default class Cadastrar extends Component {
   };
 
   fazerCadastro = async () => {
-    let sim = {
-      usuario: this.state.login,
-      email: this.state.email,
-      password: this.state.senha,
-      endereco: 'sim',
-      cpf: this.state.cpf,
-      telefone: this.state.telefone,
-    };
-
-    console.log(sim);
     try {
       const response = await http.post('usuario/cadastrar', {
         usuario: this.state.login,
@@ -65,9 +55,12 @@ export default class Cadastrar extends Component {
 
   render() {
     return (
-      <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
-        <View style={styles.viewLogin}>
-          <View>
+      <ScrollView>
+        <KeyboardAvoidingView
+          style={styles.container}
+          behavior="padding"
+          enabled>
+          <View style={styles.viewLogin}>
             <InputDefault
               nome="Usuario"
               value={this.state.login}
@@ -123,8 +116,8 @@ export default class Cadastrar extends Component {
               onPress={() => this.mudarRota('Login')}
             />
           </View>
-        </View>
-      </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
+      </ScrollView>
     );
   }
 }
