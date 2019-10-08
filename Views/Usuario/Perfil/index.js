@@ -1,15 +1,36 @@
 import * as React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, AsyncStorage} from 'react-native';
 import {List, Avatar, Divider, Text} from 'react-native-paper';
 
 export default class Perfil extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      usuario: {
+        nome: "",
+        telefone: "",
+        cpf: "",
+        endereco: "",
+        email: ""
+      }
+    };
+    // this.backButtonClick = this.backButtonClick.bind(this);
+  }
+  componentDidMount = () => {
+    this.requestUser();
+  }
+  requestUser = async () => {
+    const usuario = await AsyncStorage.getItem("usuario");
+
+    this.setState({usuario: JSON.parse(usuario)});
+  }
   render() {
     return (
       <List.Section>
         <View style={styles.row}>
           <Avatar.Icon icon="person" style={styles.avatar} />
           <View>
-            <Text style={styles.userName}>João Kleber</Text>
+            <Text style={styles.userName}>{this.state.usuario.usuario}</Text>
             <List.Subheader style={{marginLeft: 8}}>
               Editar Perfil
             </List.Subheader>
@@ -18,21 +39,22 @@ export default class Perfil extends React.Component {
         <Divider />
         <List.Item
           title="E-mail"
-          description="joaokleber@gmail.com"
+          description={this.state.usuario.email}
           left={() => <List.Icon color="#F59656" icon="email" />}
         />
         <List.Item
           title="CPF"
-          description="123.456.789-12"
+          description={this.state.usuario.cpf}
           left={() => <List.Icon color="#F59656" icon="contacts" />}
         />
         <List.Item
           title="Telefone"
-          description="(88) 9 98987676"
+          description={this.state.usuario.telefone}
           left={() => <List.Icon color="#F59656" icon="phone" />}
         />
         <List.Item
           title="Endereço"
+          description={this.state.usuario.endereco}
           left={() => <List.Icon color="#F59656" icon="map" />}
         />
         <List.Item
