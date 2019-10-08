@@ -30,7 +30,7 @@ export default class Cadastrar extends Component {
   fazerCadastro = async () => {
     try {
       const response = await http.post('usuario/cadastrar', {
-        usuario: this.state.login.toLocaleLowerCase(),
+        usuario: this.state.login,
         email: this.state.email.toLocaleLowerCase(),
         password: this.state.senha,
         endereco: 'sim',
