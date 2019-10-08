@@ -1,8 +1,9 @@
 import { AsyncStorage } from "react-native";
 import axios from "axios";
 
-export const logar = async token => {
-    await AsyncStorage.setItem("token", token);
+export const logar = async dados => {
+    await AsyncStorage.setItem("token", dados.token);
+    await AsyncStorage.setItem("usuario", JSON.stringify(dados.usuario));
 };
 
 export const desLogar = async () => {
