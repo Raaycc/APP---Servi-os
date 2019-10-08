@@ -32,7 +32,7 @@ export default class Login extends Component {
   fazerLogin = async () => {
     try {
       const response = await http.post('login', {
-        email: this.state.login,
+        email: this.state.login.toLocaleLowerCase(),
         password: this.state.senha,
       });
       console.log(response.data);
