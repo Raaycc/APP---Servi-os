@@ -25,6 +25,8 @@ class Home extends React.Component {
     this.state = {
       query: '',
       servicos: [],
+      lista: [],
+      ListaPrestador: [],
     };
     // this.backButtonClick = this.backButtonClick.bind(this);
   }
@@ -37,6 +39,7 @@ class Home extends React.Component {
   }
 
   async componentDidMount() {
+    this.requestPrestadores();
     // await http
     //   .get('servico/listar')
     //   .then(servicos => {
@@ -49,9 +52,33 @@ class Home extends React.Component {
     //   });
   }
 
+  requestPrestadores  = async() => {
+    
+    try{
+    const response = await http.get('usuario/prestadores');
+    alert(JSON.stringify(response));
+    if(response.status === 200) {
+      const lista = response.data;
+
+      this.setState({lista, ListaPrestador: lista});
+    }
+  } catch (e){
+    console.log(e);
+  }
+    
+  }
+
   backButtonClick = () => {
     return false;
   };
+
+  filtrarLista = (text) => {
+    const ListaPrestador = this.state.lista.filter((item) => {
+      return item.usuario.toLowerCase().indexOf(text.toLowerCase()) > -1;
+    });
+
+    this.setState({ListaPrestador, firstQuery: text});
+  }
 
   static navigationOptions = {
     header: null,
@@ -72,8 +99,8 @@ class Home extends React.Component {
       <View style={[styles.container, {backgroundColor: background}]}>
         <Searchbar
           placeholder="Search"
-          onChangeText={query => this.setState({firstQuery: query})}
-          value={this.state.query}
+          onChangeText={query => this.filtrarLista(query)}
+          value={this.state.firstQuery}
           style={styles.searchbar}
         />
         <ScrollView>
@@ -101,97 +128,35 @@ class Home extends React.Component {
           </ScrollView>
           <List.Section>
             <List.Subheader>Em alta</List.Subheader>
-            <List.Item
-              left={() => (
-                <Image
-                  source={require('../../../assets/real-estate.png')}
-                  style={styles.image}
+            { this.state.ListaPrestador.map(prestador => {
+              return (
+                <>
+                <List.Item
+                  left={() => (
+                    <Image
+                      source={require('../../../assets/real-estate.png')}
+                      style={styles.image}
+                    />
+                  )}
+                  right={props => <Text {...props}>1.5 km</Text>}
+                  title={<Text style={styles.title}>{prestador.usuario}</Text>}
+                  onPress={() => this.mudarRota('Prestador')}
+                  description={() => (
+                    <View style={[styles.description, {paddingTop: 8}]}>
+                      <Chip icon="star-border" style={styles.description}>
+                        5.0
+                      </Chip>
+                      <Chip icon="person" style={styles.description}>
+                        Autônomo
+                      </Chip>
+                    </View>
+                    
+                  )}
                 />
-              )}
-              right={props => <Text {...props}>1.5 km</Text>}
-              title={<Text style={styles.title}>João Kleber</Text>}
-              onPress={() => this.mudarRota('Prestador')}
-              description={() => (
-                <View style={[styles.description, {paddingTop: 8}]}>
-                  <Chip icon="star-border" style={styles.description}>
-                    5.0
-                  </Chip>
-                  <Chip icon="person" style={styles.description}>
-                    Autônomo
-                  </Chip>
-                </View>
-              )}
-            />
-            <Divider />
-            <List.Item
-              left={() => (
-                <Image
-                  source={require('../../../assets/building.png')}
-                  style={styles.image}
-                />
-              )}
-              right={props => <Text {...props}>2 km</Text>}
-              title={<Text style={styles.title}>Brisanet</Text>}
-              description={() => (
-                <View style={[styles.description, {paddingTop: 8}]}>
-                  <Chip icon="star-border" style={styles.description}>
-                    5.0
-                  </Chip>
-                  <Chip
-                    icon="work"
-                    style={styles.description}
-                    onPress={() => {}}>
-                    Empresa
-                  </Chip>
-                </View>
-              )}
-            />
-            <Divider />
-            <List.Item
-              left={() => (
-                <Image
-                  source={require('../../../assets/real-estate.png')}
-                  style={styles.image}
-                />
-              )}
-              right={props => <Text {...props}>1.5 km</Text>}
-              title={<Text style={styles.title}>Autônomo</Text>}
-              description={() => (
-                <View style={[styles.description, {paddingTop: 8}]}>
-                  <Chip icon="star-border" style={styles.description}>
-                    4.5
-                  </Chip>
-                  <Chip
-                    icon="person"
-                    style={styles.description}
-                    onPress={() => {}}>
-                    Autônomo
-                  </Chip>
-                </View>
-              )}
-            />
-            <Divider />
-            <List.Item
-              left={() => (
-                <Image
-                  source={require('../../../assets/building.png')}
-                  style={styles.image}
-                />
-              )}
-              right={props => <Text {...props}>2 km</Text>}
-              title={<Text style={styles.title}>Empresa</Text>}
-              description={() => (
-                <View style={[styles.description, {paddingTop: 8}]}>
-                  <Chip icon="star-border" style={styles.description}>
-                    4.1
-                  </Chip>
-                  <Chip icon="work" style={styles.description}>
-                    Empresa
-                  </Chip>
-                </View>
-              )}
-            />
-            <Divider />
+                 <Divider />
+                </>
+              );
+            })}
           </List.Section>
         </ScrollView>
       </View>
