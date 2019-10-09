@@ -5,6 +5,7 @@ import Cadastrar from './Views/Cadastrar';
 import Inicio from './Views/Usuario';
 import Home from './Views/Usuario/Home';
 import Prestador from './Views/Usuario/Prestador';
+import EditarPerfil from './Views/Usuario/Perfil/editar';
 
 const AppNavigator = createStackNavigator(
   {
@@ -13,6 +14,7 @@ const AppNavigator = createStackNavigator(
     Inicio: Inicio,
     Home: Home,
     Prestador: Prestador,
+    EditarPerfil: EditarPerfil,
   },
   {
     initialRouteName: 'Login',

@@ -40,31 +40,21 @@ class Home extends React.Component {
 
   async componentDidMount() {
     this.requestPrestadores();
-    // await http
-    //   .get('servico/listar')
-    //   .then(servicos => {
-    //     this.setState({servicos});
-    //     console.log(servicos);
-    //   })
-    //   .catch(e => {
-    //     alert('Não foi possível carregar os serviços');
-    //     console.log(e);
-    //   });
   }
 
   requestPrestadores  = async() => {
     
     try{
-    const response = await http.get('usuario/prestadores');
-    alert(JSON.stringify(response));
-    if(response.status === 200) {
-      const lista = response.data;
+      const response = await http.get('usuario/prestadores');
+      alert(JSON.stringify(response));
+      if(response.status === 200) {
+        const lista = response.data;
 
-      this.setState({lista, ListaPrestador: lista});
+        this.setState({lista, ListaPrestador: lista});
+      }
+    } catch (e){
+      console.log(e);
     }
-  } catch (e){
-    console.log(e);
-  }
     
   }
 

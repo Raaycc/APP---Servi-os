@@ -15,7 +15,6 @@ import Header from '../../../Components/Header/Header';
 
 class Prestador extends React.Component {
   render() {
-    console.log('PRESTADORRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR');
     const {
       theme: {
         colors: {background},

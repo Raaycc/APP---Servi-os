@@ -7,23 +7,29 @@ export default class Perfil extends React.Component {
     super(props);
     this.state = {
       usuario: {
-        nome: "",
-        telefone: "",
-        cpf: "",
-        endereco: "",
-        email: ""
-      }
+        nome: '',
+        telefone: '',
+        cpf: '',
+        endereco: '',
+        email: '',
+      },
     };
     // this.backButtonClick = this.backButtonClick.bind(this);
   }
   componentDidMount = () => {
     this.requestUser();
-  }
+  };
+
   requestUser = async () => {
-    const usuario = await AsyncStorage.getItem("usuario");
+    const usuario = await AsyncStorage.getItem('usuario');
 
     this.setState({usuario: JSON.parse(usuario)});
-  }
+  };
+
+  mudarRota = rota => {
+    this.props.navigation.navigate(rota);
+  };
+
   render() {
     return (
       <List.Section>
@@ -31,7 +37,9 @@ export default class Perfil extends React.Component {
           <Avatar.Icon icon="person" style={styles.avatar} />
           <View>
             <Text style={styles.userName}>{this.state.usuario.usuario}</Text>
-            <List.Subheader style={{marginLeft: 8}}>
+            <List.Subheader
+              style={{marginLeft: 8}}
+              onPress={() => this.mudarRota('EditarPerfil')}>
               Editar Perfil
             </List.Subheader>
           </View>
