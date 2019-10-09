@@ -42,33 +42,31 @@ class Home extends React.Component {
     this.requestPrestadores();
   }
 
-  requestPrestadores  = async() => {
-    
-    try{
-      const response = await http.get('usuario/prestadores');
+  requestPrestadores = async () => {
+    try {
+      const response = await http.get('prestadores');
       alert(JSON.stringify(response));
-      if(response.status === 200) {
+      if (response.status === 200) {
         const lista = response.data;
 
         this.setState({lista, ListaPrestador: lista});
       }
-    } catch (e){
+    } catch (e) {
       console.log(e);
     }
-    
-  }
+  };
 
   backButtonClick = () => {
     return false;
   };
 
-  filtrarLista = (text) => {
-    const ListaPrestador = this.state.lista.filter((item) => {
+  filtrarLista = text => {
+    const ListaPrestador = this.state.lista.filter(item => {
       return item.usuario.toLowerCase().indexOf(text.toLowerCase()) > -1;
     });
 
     this.setState({ListaPrestador, firstQuery: text});
-  }
+  };
 
   static navigationOptions = {
     header: null,
@@ -118,32 +116,33 @@ class Home extends React.Component {
           </ScrollView>
           <List.Section>
             <List.Subheader>Em alta</List.Subheader>
-            { this.state.ListaPrestador.map(prestador => {
+            {this.state.ListaPrestador.map(prestador => {
               return (
                 <>
-                <List.Item
-                  left={() => (
-                    <Image
-                      source={require('../../../assets/real-estate.png')}
-                      style={styles.image}
-                    />
-                  )}
-                  right={props => <Text {...props}>1.5 km</Text>}
-                  title={<Text style={styles.title}>{prestador.usuario}</Text>}
-                  onPress={() => this.mudarRota('Prestador')}
-                  description={() => (
-                    <View style={[styles.description, {paddingTop: 8}]}>
-                      <Chip icon="star-border" style={styles.description}>
-                        5.0
-                      </Chip>
-                      <Chip icon="person" style={styles.description}>
-                        Autônomo
-                      </Chip>
-                    </View>
-                    
-                  )}
-                />
-                 <Divider />
+                  <List.Item
+                    left={() => (
+                      <Image
+                        source={require('../../../assets/real-estate.png')}
+                        style={styles.image}
+                      />
+                    )}
+                    right={props => <Text {...props}>1.5 km</Text>}
+                    title={
+                      <Text style={styles.title}>{prestador.usuario}</Text>
+                    }
+                    onPress={() => this.mudarRota('Prestador')}
+                    description={() => (
+                      <View style={[styles.description, {paddingTop: 8}]}>
+                        <Chip icon="star-border" style={styles.description}>
+                          5.0
+                        </Chip>
+                        <Chip icon="person" style={styles.description}>
+                          Autônomo
+                        </Chip>
+                      </View>
+                    )}
+                  />
+                  <Divider />
                 </>
               );
             })}
