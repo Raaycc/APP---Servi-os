@@ -20,7 +20,7 @@ export default class Login extends Component {
     this.state = {
       loading: false,
       text: '',
-      login: 'antonylrds@gmail.com',
+      login: 'teste@gmail.com',
       senha: '123',
     };
   }
