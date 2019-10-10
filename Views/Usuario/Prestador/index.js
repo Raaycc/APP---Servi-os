@@ -108,7 +108,6 @@ class Prestador extends React.Component {
                     <Paragraph>Descrição do serviço</Paragraph>
                   </Card.Content>
                   <Card.Actions>
-                    <Button>Exibir todos</Button>
                     <Button
                       onPress={() =>
                         this.mudarRota(

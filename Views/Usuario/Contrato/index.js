@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Text, View, AsyncStorage, ScrollView, StyleSheet} from 'react-native';
-import {Colors, Card, withTheme, Button} from 'react-native-paper';
+import {Colors, Card, withTheme, Button, Chip} from 'react-native-paper';
 import {http} from '../../../Service/auth';
 import Header from '../Header';
 
@@ -10,6 +10,7 @@ class Contrato extends Component {
     this.state = {
       lista: [],
       usuario: {},
+      servicos: [],
     };
     // this.backButtonClick = this.backButtonClick.bind(this);
   }
@@ -26,12 +27,26 @@ class Contrato extends Component {
   componentDidMount = () => {
     this.requestUser();
     this.requestContratos();
+    this.requestServicos();
   };
 
   requestUser = async () => {
     const usuario = await AsyncStorage.getItem('usuario');
 
     this.setState({usuario: JSON.parse(usuario)});
+  };
+
+  requestServicos = async () => {
+    try {
+      const response = await http.get('servico/listar');
+      // alert(JSON.stringify(response));
+      if (response.status === 200) {
+        const servicos = response.data;
+        this.setState({servicos});
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   requestContratos = async () => {
@@ -63,30 +78,51 @@ class Contrato extends Component {
     }
   };
 
+  getNome = id => {
+    let nome = '';
+    this.state.servicos.map(s => {
+      if (s.id === id) {
+        nome = s.nome;
+      }
+    });
+    return nome;
+  };
+
   render() {
     console.log(this.state.lista);
+    const {lista} = this.state;
     return (
       <>
         <ScrollView>
-          {this.state.lista.map(contrato => (
-            <Card style={styles.card} key={contrato.id}>
-              <Card.Title
-                title={`Serviço: ${contrato.id_servico}`}
-                subtitle={`R$ ${contrato.valor}`}
-              />
-              <Card.Content>
-                <Text>Data: {contrato.data}</Text>
-                <Text>Descrição: {contrato.descricao}</Text>
-                <Text>Status: {contrato.status}</Text>
-              </Card.Content>
-              <Card.Actions>
-                <Button onPress={() => this.deletarContrato(contrato.id)}>
-                  Cancelar
-                </Button>
-                <Button>Confirmar</Button>
-              </Card.Actions>
-            </Card>
-          ))}
+          {lista &&
+            lista.map(contrato => (
+              <Card style={styles.card} key={contrato.id}>
+                <Card.Title
+                  title={`Serviço: ${this.getNome(contrato.id_servico)}`}
+                  subtitle={`R$ ${contrato.valor}`}
+                />
+                <Card.Content>
+                  <Text>Data: {contrato.data}</Text>
+                  <Text>Descrição: {contrato.descricao}</Text>
+                  {contrato.status === 1 && (
+                    <Chip
+                      style={{
+                        backgroundColor: '#4287f5',
+                        margin: 20,
+                        alignItems: 'center',
+                      }}>
+                      <Text style={{color: '#fff'}}>aguardando</Text>
+                    </Chip>
+                  )}
+                </Card.Content>
+                <Card.Actions>
+                  <Button onPress={() => this.deletarContrato(contrato.id)}>
+                    Cancelar
+                  </Button>
+                  <Button>Confirmar</Button>
+                </Card.Actions>
+              </Card>
+            ))}
         </ScrollView>
         <Header mudarRota={rota => this.mudarRota(rota)} selected={2} />
       </>

@@ -28,6 +28,7 @@ export default class Contrato extends React.Component {
     const prestador = this.props.navigation.getParam('prestador');
     const servico = this.props.navigation.getParam('servicoId');
     const valor = this.props.navigation.getParam('valor');
+    console.log(prestador);
     this.setState({
       prestador,
       servico,
@@ -46,8 +47,17 @@ export default class Contrato extends React.Component {
         data,
         hora,
       } = this.state;
+      console.log(
+        prestador.id,
+        servico,
+        usuario.id,
+        valor,
+        descricao,
+        data,
+        hora,
+      );
       const response = await http.post(`usuario/${usuario.id}/contrato`, {
-        id_prestador: prestador.id_usuario,
+        id_prestador: prestador.id,
         id_servico: servico,
         id_cliente: usuario.id,
         valor,
@@ -80,6 +90,7 @@ export default class Contrato extends React.Component {
   };
 
   render() {
+    console.log(this.state.prestador);
     return (
       <>
         <Header
