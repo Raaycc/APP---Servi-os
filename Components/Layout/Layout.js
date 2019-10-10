@@ -6,6 +6,7 @@ import Home from '../../Views/Usuario/Home';
 import Perfil from '../../Views/Usuario/Perfil';
 import Contrato from '../../Views/Usuario/Contrato';
 import Chat from '../../Views/Usuario/Chat';
+import EditarPerfil from '../../Views/Usuario/Perfil/editar';
 
 export default class Layout extends React.Component {
   render() {
@@ -25,7 +26,7 @@ const bottomTabNavigator = createBottomTabNavigator(
       },
     },
     Chat: {
-      screen: Chat,
+      screen: EditarPerfil,
       navigationOptions: {
         tabBarIcon: ({tintColor}) => (
           <Icon name="comments" size={25} color={tintColor} />

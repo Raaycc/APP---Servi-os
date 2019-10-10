@@ -38,25 +38,35 @@ export default class EditarPerfil extends Component {
     });
   };
 
-  static navigationOptions = {
-    header: null,
-  };
-
   atualizarPerfil = async () => {
     try {
+      const {usuario, email, endereco, cpf, telefone} = this.state;
       const response = await http.put(`usuario/${this.state.id}`, {
-        usuario: this.state.usuario,
-        email: this.state.email.toLocaleLowerCase(),
-        endereco: this.state.endereco,
-        cpf: this.state.cpf,
-        telefone: this.state.telefone,
+        usuario,
+        email: email.toLocaleLowerCase(),
+        endereco,
+        cpf,
+        telefone,
       });
+
       console.log(response.data);
       if (response.status < 300) {
-        alert(JSON.stringify(response.data));
-        this.props.navigation.navigate('Perfil');
+        const usuario2 = await AsyncStorage.getItem('usuario');
+
+        let usuarioEditado = JSON.parse(usuario2);
+
+        usuarioEditado.usuario = usuario;
+        usuarioEditado.email = email.toLocaleLowerCase();
+        usuarioEditado.endereco = endereco;
+        usuarioEditado.cpf = cpf;
+        usuarioEditado.telefone = telefone;
+
+        await AsyncStorage.setItem('usuario', JSON.stringify(usuarioEditado));
+
+        // alert(JSON.stringify(response.data));
+        this.props.navigation.push('Perfil');
       }
-      alert(JSON.stringify(response.data));
+      // alert(JSON.stringify(response.data));
     } catch (e) {
       alert('Não foi possível atualizar o perfil');
       console.log(e);
@@ -70,7 +80,6 @@ export default class EditarPerfil extends Component {
   render() {
     return (
       <ScrollView>
-        <Header title="Atualizar Perfil" />
         <View style={styles.viewLogin}>
           <InputDefault
             nome="Nome"
@@ -120,9 +129,8 @@ const styles = StyleSheet.create({
   viewLogin: {
     minWidth: '70%',
     backgroundColor: '#fff',
-    padding: 50,
+    padding: 40,
     borderRadius: 20,
-    marginTop: 30,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

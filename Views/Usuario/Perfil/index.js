@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {View, StyleSheet, AsyncStorage} from 'react-native';
 import {List, Avatar, Divider, Text} from 'react-native-paper';
+import Header from '../Header';
 
 export default class Perfil extends React.Component {
   constructor(props) {
@@ -32,52 +33,55 @@ export default class Perfil extends React.Component {
 
   render() {
     return (
-      <List.Section>
-        <View style={styles.row}>
-          <Avatar.Icon icon="person" style={styles.avatar} />
-          <View>
-            <Text style={styles.userName}>{this.state.usuario.usuario}</Text>
-            <List.Subheader
-              style={{marginLeft: 8}}
-              onPress={() => this.mudarRota('EditarPerfil')}>
-              Editar Perfil
-            </List.Subheader>
+      <>
+        <List.Section style={{flex: 1}}>
+          <View style={styles.row}>
+            <Avatar.Icon icon="person" style={styles.avatar} />
+            <View>
+              <Text style={styles.userName}>{this.state.usuario.usuario}</Text>
+              <List.Subheader
+                style={{marginLeft: 8}}
+                onPress={() => this.mudarRota('EditarPerfil')}>
+                Editar Perfil
+              </List.Subheader>
+            </View>
           </View>
-        </View>
-        <Divider />
-        <List.Item
-          title="E-mail"
-          description={this.state.usuario.email}
-          left={() => <List.Icon color="#F59656" icon="email" />}
-        />
-        <List.Item
-          title="CPF"
-          description={this.state.usuario.cpf}
-          left={() => <List.Icon color="#F59656" icon="contacts" />}
-        />
-        <List.Item
-          title="Telefone"
-          description={this.state.usuario.telefone}
-          left={() => <List.Icon color="#F59656" icon="phone" />}
-        />
-        <List.Item
-          title="Endereço"
-          description={this.state.usuario.endereco}
-          left={() => <List.Icon color="#F59656" icon="map" />}
-        />
-        <List.Item
-          title="Pagamento"
-          left={() => <List.Icon color="#F59656" icon="credit-card" />}
-        />
-        <List.Item
-          title="Configurações"
-          left={() => <List.Icon color="#F59656" icon="settings" />}
-        />
-        <List.Item
-          title="Sair"
-          left={() => <List.Icon color="#F59656" icon="exit-to-app" />}
-        />
-      </List.Section>
+          <Divider />
+          <List.Item
+            title="E-mail"
+            description={this.state.usuario.email}
+            left={() => <List.Icon color="#F59656" icon="email" />}
+          />
+          <List.Item
+            title="CPF"
+            description={this.state.usuario.cpf}
+            left={() => <List.Icon color="#F59656" icon="contacts" />}
+          />
+          <List.Item
+            title="Telefone"
+            description={this.state.usuario.telefone}
+            left={() => <List.Icon color="#F59656" icon="phone" />}
+          />
+          <List.Item
+            title="Endereço"
+            description={this.state.usuario.endereco}
+            left={() => <List.Icon color="#F59656" icon="map" />}
+          />
+          <List.Item
+            title="Pagamento"
+            left={() => <List.Icon color="#F59656" icon="credit-card" />}
+          />
+          <List.Item
+            title="Configurações"
+            left={() => <List.Icon color="#F59656" icon="settings" />}
+          />
+          <List.Item
+            title="Sair"
+            left={() => <List.Icon color="#F59656" icon="exit-to-app" />}
+          />
+        </List.Section>
+        <Header mudarRota={rota => this.mudarRota(rota)} selected={3} />
+      </>
     );
   }
 }

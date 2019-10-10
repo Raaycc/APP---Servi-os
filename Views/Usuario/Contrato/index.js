@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Text, View, AsyncStorage, ScrollView, StyleSheet} from 'react-native';
 import {Colors, Card, withTheme, Button} from 'react-native-paper';
 import {http} from '../../../Service/auth';
+import Header from '../Header';
 
 class Contrato extends Component {
   constructor(props) {
@@ -12,6 +13,15 @@ class Contrato extends Component {
     };
     // this.backButtonClick = this.backButtonClick.bind(this);
   }
+  static navigationOptions = {
+    header: null,
+    title: 'Contrato',
+  };
+
+  mudarRota = rota => {
+    console.log(this.props);
+    this.props.navigation.navigate(rota);
+  };
 
   componentDidMount = () => {
     this.requestUser();
@@ -29,7 +39,7 @@ class Contrato extends Component {
       const response = await http.get(
         `usuario/${this.state.usuario.id}/contrato`,
       );
-      alert(JSON.stringify(response));
+      // alert(JSON.stringify(response));
       if (response.status === 200) {
         const lista = response.data;
         this.setState({lista});
@@ -42,25 +52,29 @@ class Contrato extends Component {
   render() {
     console.log(this.state.lista);
     return (
-      <ScrollView>
-        {this.state.lista.map(contrato => (
-          <Card style={styles.card}>
-            <Card.Title
-              title={`Serviço: ${contrato.id_servico}`}
-              subtitle={`R$ ${contrato.valor}`}
-            />
-            <Card.Content>
-              <Text>Data: {contrato.data}</Text>
-              <Text>Descrição: {contrato.descricao}</Text>
-              <Text>Status: {contrato.status}</Text>
-            </Card.Content>
-            <Card.Actions>
-              <Button>Cancelar</Button>
-              <Button>Confirmar</Button>
-            </Card.Actions>
-          </Card>
-        ))}
-      </ScrollView>
+      <>
+        <ScrollView>
+          {this.state.lista.map(contrato => (
+            <Card style={styles.card} key={contrato.id}>
+              <Card.Title
+                title={`Serviço: ${contrato.id_servico}`}
+                subtitle={`R$ ${contrato.valor}`}
+              />
+              <Card.Content>
+                <Text>Data: {contrato.data}</Text>
+                <Text>Descrição: {contrato.descricao}</Text>
+                <Text>Status: {contrato.status}</Text>
+              </Card.Content>
+              <Card.Actions>
+                <Button>Cancelar</Button>
+                <Button>Confirmar</Button>
+              </Card.Actions>
+            </Card>
+          ))}
+          <Text>Oi</Text>
+        </ScrollView>
+        <Header mudarRota={rota => this.mudarRota(rota)} selected={2} />
+      </>
     );
   }
 }

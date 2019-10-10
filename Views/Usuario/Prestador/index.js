@@ -14,6 +14,10 @@ import {
 import Header from '../../../Components/Header/Header';
 
 class Prestador extends React.Component {
+  mudarRota = rota => {
+    this.props.navigation.navigate('Home');
+  };
+
   render() {
     const {
       theme: {
@@ -22,7 +26,7 @@ class Prestador extends React.Component {
     } = this.props;
     return (
       <View style={[styles.container, {backgroundColor: background}]}>
-        <Header />
+        <Header mudarRota={() => this.mudarRota()} />
         <ScrollView>
           <View style={styles.header}>
             <View style={styles.row}>

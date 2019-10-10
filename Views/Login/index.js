@@ -38,16 +38,17 @@ export default class Login extends Component {
       console.log(response.data);
       logar(response.data);
       if (response.status === 200) {
-        this.props.navigation.navigate('Inicio');
+        this.props.navigation.navigate('Auth');
       }
     } catch (e) {
       alert('Credenciais Erradas');
+      this.props.navigation.navigate('Auth');
       console.log(e);
     }
   };
 
   mudarRota = rota => {
-    this.props.navigation.navigate(rota);
+    this.props.navigation.push(rota);
   };
 
   render() {

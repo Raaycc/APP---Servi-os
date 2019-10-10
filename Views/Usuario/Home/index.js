@@ -18,6 +18,7 @@ import {
   IconButton,
 } from 'react-native-paper';
 import {http} from '../../../Service/auth';
+import Header from '../Header';
 
 class Home extends React.Component {
   constructor(props) {
@@ -45,7 +46,7 @@ class Home extends React.Component {
   requestPrestadores = async () => {
     try {
       const response = await http.get('prestadores');
-      alert(JSON.stringify(response));
+      // alert(JSON.stringify(response));
       if (response.status === 200) {
         const lista = response.data;
 
@@ -74,7 +75,7 @@ class Home extends React.Component {
 
   mudarRota = rota => {
     console.log(this.props);
-    this.props.navigation.navigate('Prestador');
+    this.props.navigation.push(rota);
   };
 
   render() {
@@ -104,13 +105,13 @@ class Home extends React.Component {
                 <Text style={styles.textTag}>#babá</Text>
               </View>
               <View style={styles.tag}>
-                <Text style={styles.textTag}>#pedreiro</Text>
+                <Text style={styles.textTag}>#encanador</Text>
               </View>
               <View style={styles.tag}>
-                <Text style={styles.textTag}>#pintor</Text>
+                <Text style={styles.textTag}>#diarista</Text>
               </View>
               <View style={styles.tag}>
-                <Text style={styles.textTag}>#babá</Text>
+                <Text style={styles.textTag}>#cozinheiro</Text>
               </View>
             </View>
           </ScrollView>
@@ -118,7 +119,7 @@ class Home extends React.Component {
             <List.Subheader>Em alta</List.Subheader>
             {this.state.ListaPrestador.map(prestador => {
               return (
-                <>
+                <View key={prestador.id}>
                   <List.Item
                     left={() => (
                       <Image
@@ -143,11 +144,12 @@ class Home extends React.Component {
                     )}
                   />
                   <Divider />
-                </>
+                </View>
               );
             })}
           </List.Section>
         </ScrollView>
+        <Header mudarRota={rota => this.mudarRota(rota)} selected={0} />
       </View>
     );
   }

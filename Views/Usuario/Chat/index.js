@@ -1,15 +1,20 @@
 import React, {Component} from 'react';
 import {Text, View} from 'react-native';
-import Header from '../../../Components/Header/Header';
+import Header from '../Header';
 
 export default class Chat extends Component {
+  mudarRota = rota => {
+    console.log(this.props);
+    this.props.navigation.navigate(rota);
+  };
+
   render() {
     return (
       <>
-        <View>
-          <Header title="Chat" subtitle="Pra conversar" />
+        <View style={{flex: 1}}>
           <Text> FAZER O CHAT</Text>
         </View>
+        <Header mudarRota={rota => this.mudarRota(rota)} selected={1} />
       </>
     );
   }

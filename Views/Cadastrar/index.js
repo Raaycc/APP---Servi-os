@@ -39,10 +39,10 @@ export default class Cadastrar extends Component {
       });
       console.log(response.data);
       if (response.status < 300) {
-        alert(JSON.stringify(response.data));
+        // alert(JSON.stringify(response.data));
         this.props.navigation.navigate('Login');
       }
-      alert(JSON.stringify(response.data));
+      // alert(JSON.stringify(response.data));
     } catch (e) {
       alert('Credenciais Erradas');
       console.log(e);

@@ -8,13 +8,16 @@ export default class Header extends React.Component {
   };
 
   _goBack = () => {
-    this.props.navigation.goBack();
+    this.props.navigation.navigate('Home');
   };
 
   render() {
     return (
       <Appbar.Header style={{backgroundColor: '#FF6700'}}>
-        <Appbar.BackAction onPress={this._goBack} color="white" />
+        <Appbar.BackAction
+          onPress={() => this.props.mudarRota()}
+          color="white"
+        />
         <Appbar.Content
           title={this.state.title}
           subtitle={this.state.subtitle}
