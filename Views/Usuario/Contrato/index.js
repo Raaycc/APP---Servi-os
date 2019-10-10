@@ -49,6 +49,20 @@ class Contrato extends Component {
     }
   };
 
+  deletarContrato = async id => {
+    try {
+      const response = await http.delete(
+        `usuario/${this.state.usuario.id}/contrato/${id}`,
+      );
+      // alert(JSON.stringify(response));
+      if (response.status === 200) {
+        this.requestContratos();
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   render() {
     console.log(this.state.lista);
     return (
@@ -66,7 +80,9 @@ class Contrato extends Component {
                 <Text>Status: {contrato.status}</Text>
               </Card.Content>
               <Card.Actions>
-                <Button>Cancelar</Button>
+                <Button onPress={() => this.deletarContrato(contrato.id)}>
+                  Cancelar
+                </Button>
                 <Button>Confirmar</Button>
               </Card.Actions>
             </Card>
