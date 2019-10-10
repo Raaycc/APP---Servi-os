@@ -8,6 +8,7 @@ import Prestador from './Views/Usuario/Prestador';
 import Perfil from './Views/Usuario/Perfil';
 import EditarPerfil from './Views/Usuario/Perfil/editar';
 import Contrato from './Views/Usuario/Contrato';
+import Contratar from './Views/Usuario/Contrato/contratar';
 import Chat from './Views/Usuario/Chat';
 
 const LoginStack = createStackNavigator(
@@ -26,6 +27,7 @@ const AuthStack = createStackNavigator(
     Prestador: Prestador,
     Chat: Chat,
     Contrato: Contrato,
+    Contratar: Contratar,
     Perfil: Perfil,
     EditarPerfil: EditarPerfil,
   },

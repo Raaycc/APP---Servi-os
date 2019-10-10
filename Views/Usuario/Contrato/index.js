@@ -71,7 +71,6 @@ class Contrato extends Component {
               </Card.Actions>
             </Card>
           ))}
-          <Text>Oi</Text>
         </ScrollView>
         <Header mudarRota={rota => this.mudarRota(rota)} selected={2} />
       </>

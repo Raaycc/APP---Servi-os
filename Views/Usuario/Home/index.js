@@ -73,9 +73,10 @@ class Home extends React.Component {
     header: null,
   };
 
-  mudarRota = rota => {
-    console.log(this.props);
-    this.props.navigation.push(rota);
+  mudarRota = (rota, prestador) => {
+    this.props.navigation.navigate(rota, {
+      prestador,
+    });
   };
 
   render() {
@@ -131,7 +132,7 @@ class Home extends React.Component {
                     title={
                       <Text style={styles.title}>{prestador.usuario}</Text>
                     }
-                    onPress={() => this.mudarRota('Prestador')}
+                    onPress={() => this.mudarRota('Prestador', prestador)}
                     description={() => (
                       <View style={[styles.description, {paddingTop: 8}]}>
                         <Chip icon="star-border" style={styles.description}>

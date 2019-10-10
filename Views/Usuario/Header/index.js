@@ -21,7 +21,7 @@ export default function Header({mudarRota, selected}) {
         }}
         innerBorderStyle={{width: 0}}
         selectedButtonStyle={{backgroundColor: '#ff7000'}}
-        textStyle={{fontSize: 18, fontWeight: 'bold', color: '#fff'}}
+        textStyle={{fontSize: 15, fontWeight: 'bold', color: '#fff'}}
       />
     </View>
   );
