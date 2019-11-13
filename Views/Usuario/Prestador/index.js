@@ -24,27 +24,32 @@ class Prestador extends React.Component {
     };
   }
 
-  setPrestador = () => {
-    this.setState({
+  setPrestador = async () => {
+    await this.setState({
       prestador: this.props.navigation.getParam('prestador'),
     });
   };
 
   requestServicos = async () => {
-    try {
-      const response = await http.get('servico/listar');
+    // try {
+      const { id } = this.state.prestador;
+      const response = await http.get(`servico/${id}/listar`);
       // alert(JSON.stringify(response));
       if (response.status === 200) {
         const servicos = response.data;
+        console.log(servicos);
         this.setState({servicos});
+      }else {
+        console.log(response.data);
       }
-    } catch (e) {
-      console.log(e);
-    }
+    // } catch (e) {
+    //   console.log(`servico/${this.state.prestador.id}/listar`);
+    //   console.log(e);
+    // }
   };
 
-  componentDidMount = () => {
-    this.setPrestador();
+  componentDidMount = async() => {
+    await this.setPrestador();
     this.requestServicos();
   };
 
@@ -153,7 +158,7 @@ const styles = StyleSheet.create({
     height: 150,
   },
   userName: {fontSize: 30, marginLeft: 20, marginTop: 10, color: '#fff'},
-  card: {margin: 20},
+  card: {margin: 10},
   title: {
     paddingTop: 10,
     fontSize: 18,

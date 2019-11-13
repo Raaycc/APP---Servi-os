@@ -16,6 +16,7 @@ export default class Chat extends Component {
           <List.Section>
             <List.Subheader>Chat</List.Subheader>
             <List.Item
+              onPress={() => this.props.navigation.push('OpenedChat')}
               title="Jubileu"
               description="Uma mensagem bem top dessa pessoa..."
               left={() => <List.Icon icon="person" />}

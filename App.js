@@ -10,6 +10,7 @@ import EditarPerfil from './Views/Usuario/Perfil/editar';
 import Contrato from './Views/Usuario/Contrato';
 import Contratar from './Views/Usuario/Contrato/contratar';
 import Chat from './Views/Usuario/Chat';
+import OpenedChat from './Views/Usuario/Chat/OpenedChat';
 
 const LoginStack = createStackNavigator(
   {
@@ -30,6 +31,7 @@ const AuthStack = createStackNavigator(
     Contratar: Contratar,
     Perfil: Perfil,
     EditarPerfil: EditarPerfil,
+    OpenedChat: OpenedChat
   },
   {
     initialRouteName: 'Home',

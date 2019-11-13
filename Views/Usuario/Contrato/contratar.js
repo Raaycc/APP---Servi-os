@@ -5,6 +5,7 @@ import {http} from '../../../Service/auth';
 import InputDefault from '../../../Components/Inputs/InputDefault';
 import Header from '../../../Components/Header/Header';
 // import { Container } from './styles';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default class Contrato extends React.Component {
   constructor(props) {
@@ -15,7 +16,40 @@ export default class Contrato extends React.Component {
       descricao: '',
       data: '2019-01-01',
       hora: '00:00:00',
+      mode: 'date',
+      show: false,
     };
+  }
+
+  setDate = (event, date, mode) => {
+    
+    if(mode === 'date') {
+      this.setState({
+        show: Platform.OS === 'ios' ? true : false,
+        data: date,
+      });
+    } else {
+      this.setState({
+        show: Platform.OS === 'ios' ? true : false,
+        hora: date,
+      });
+    }
+    
+  }
+
+  show = mode => {
+    this.setState({
+      show: true,
+      mode,
+    });
+  }
+
+  datepicker = () => {
+    this.show('date');
+  }
+
+  timepicker = () => {
+    this.show('time');
   }
 
   requestUser = async () => {
@@ -90,7 +124,7 @@ export default class Contrato extends React.Component {
   };
 
   render() {
-    console.log(this.state.prestador);
+    const { show, date, mode, data } = this.state;
     return (
       <>
         <Header
@@ -109,15 +143,19 @@ export default class Contrato extends React.Component {
               value={this.state.valor}
               onChange={value => this.setState({valor: value})}
             />
-            <InputDefault
-              nome="Hora"
-              value={this.state.hora}
-              onChange={value => this.setState({hora: value})}
+            <Button
+              title={this.state.hora || 'Hora'}
+              type="outline"
+              titleStyle={{fontSize: 21, color: '#FF6700'}}
+              buttonStyle={styles.buttonLogin}
+              onPress={() => this.timepicker()}
             />
-            <InputDefault
-              nome="Data"
-              value={this.state.data}
-              onChange={value => this.setState({data: value})}
+            <Button
+              title={this.state.hora || 'Data'}
+              type="outline"
+              titleStyle={{fontSize: 21, color: '#FF6700'}}
+              buttonStyle={styles.buttonLogin}
+              onPress={() => this.datepicker()}
             />
             <Button
               buttonStyle={[styles.buttonLogin, {backgroundColor: '#FF6700'}]}
@@ -133,6 +171,12 @@ export default class Contrato extends React.Component {
               onPress={() => this.mudarRota('Prestador', this.state.prestador)}
             />
           </View>
+          { show && <DateTimePicker value={new Date('2020-06-12T14:42:42')}
+                    mode={mode}
+                    is24Hour={true}
+                    display="default"
+                    onChange={this.setDate, mode} />
+          }
         </ScrollView>
       </>
     );
