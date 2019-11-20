@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, StyleSheet, ScrollView, AsyncStorage, Text, TouchableWithoutFeedback} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  AsyncStorage,
+  Text,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import {Button, Input} from 'react-native-elements';
 import {http} from '../../../Service/auth';
 import InputDefault from '../../../Components/Inputs/InputDefault';
@@ -16,14 +23,14 @@ export default class Contrato extends React.Component {
       valor: '',
       descricao: '',
       data: dayjs().format('DD/MM/YY'),
-      hora: '',
+      hora: new Date().toLocaleTimeString('BRT'),
       mode: 'date',
       show: false,
     };
   }
 
   setDate = (event, date, mode) => {
-    if(mode === 'date') {
+    if (mode === 'date') {
       this.setState({
         show: Platform.OS === 'ios' ? true : false,
         data: dayjs(new Date(date)).format('DD/MM/YY'),
@@ -34,23 +41,22 @@ export default class Contrato extends React.Component {
         hora: new Date(date).toLocaleTimeString('BRT'),
       });
     }
-    
-  }
+  };
 
   show = mode => {
     this.setState({
       show: true,
       mode,
     });
-  }
+  };
 
   datepicker = () => {
     this.show('date');
-  }
+  };
 
   timepicker = () => {
     this.show('time');
-  }
+  };
 
   requestUser = async () => {
     const usuario = await AsyncStorage.getItem('usuario');
@@ -82,18 +88,33 @@ export default class Contrato extends React.Component {
         hora,
       } = this.state;
 
-      const dataLoka =  '20' + data.split('/')[2] + '-'+ data.split('/')[1] + '-'+ data.split('/')[0];
-      console.log(hora + '  - id:'  + prestador.id + '  - id:'  + servico + '  - id:'  + usuario.id);
+      const dataLoka =
+        '20' +
+        data.split('/')[2] +
+        '-' +
+        data.split('/')[1] +
+        '-' +
+        data.split('/')[0];
+      console.log(
+        hora +
+          '  - id:' +
+          prestador.id +
+          '  - id:' +
+          servico +
+          '  - id:' +
+          usuario.id,
+      );
       const response = await http.post(`usuario/${usuario.id}/contrato`, {
         id_prestador: prestador.id,
         id_servico: servico,
         id_cliente: usuario.id,
         valor,
         descricao,
-        dataLoka,
+        data: dataLoka,
         hora,
       });
 
+      console.log(response);
       if (response.status < 300) {
         // alert(JSON.stringify(response.data));
         this.props.navigation.push('Contrato');
@@ -117,7 +138,7 @@ export default class Contrato extends React.Component {
   };
 
   render() {
-    const { show, date, mode, data } = this.state;
+    const {show, date, mode, data} = this.state;
     return (
       <>
         <Header
@@ -133,23 +154,51 @@ export default class Contrato extends React.Component {
             />
             <Input
               placeholder="Valor"
-              value={"R$ " + this.state.valor}
+              value={'R$ ' + this.state.valor}
               onChange={value => this.setState({valor: value})}
             />
             <TouchableWithoutFeedback
               styles={styles.buttonLogin}
-              onPress={() => this.timepicker()}
-            >
-              <View style={{marginTop: 20, marginLeft: 10, paddingLeft: 5, marginRight: 10, paddingBottom: 12, borderBottomWidth: 1, borderBottomColor: '#757575'}}>
-                <Text style={{fontSize: 18, color: this.state.hora ? 'black' : '#a1a1a1'}}>{this.state.hora !== "" ? this.state.hora : "Escolha a hora"}</Text>
+              onPress={() => this.timepicker()}>
+              <View
+                style={{
+                  marginTop: 20,
+                  marginLeft: 10,
+                  paddingLeft: 5,
+                  marginRight: 10,
+                  paddingBottom: 12,
+                  borderBottomWidth: 1,
+                  borderBottomColor: '#757575',
+                }}>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    color: this.state.hora ? 'black' : '#a1a1a1',
+                  }}>
+                  {this.state.hora !== '' ? this.state.hora : 'Escolha a hora'}
+                </Text>
               </View>
             </TouchableWithoutFeedback>
             <TouchableWithoutFeedback
               styles={styles.buttonLogin}
-              onPress={() => this.datepicker()}
-            >
-              <View style={{marginTop: 20, marginLeft: 10, paddingLeft: 5, marginRight: 10, paddingBottom: 12, borderBottomWidth: 1, borderBottomColor: '#757575'}}>
-                <Text style={{fontSize: 18, color: this.state.data ? 'black' : '#a1a1a1'}}>{this.state.data !== "" ? this.state.data : "Escolha a Data"}</Text>
+              onPress={() => this.datepicker()}>
+              <View
+                style={{
+                  marginTop: 20,
+                  marginLeft: 10,
+                  paddingLeft: 5,
+                  marginRight: 10,
+                  paddingBottom: 12,
+                  borderBottomWidth: 1,
+                  borderBottomColor: '#757575',
+                }}>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    color: this.state.data ? 'black' : '#a1a1a1',
+                  }}>
+                  {this.state.data !== '' ? this.state.data : 'Escolha a Data'}
+                </Text>
               </View>
             </TouchableWithoutFeedback>
             <Button
@@ -160,18 +209,25 @@ export default class Contrato extends React.Component {
             />
             <Button
               buttonStyle={styles.buttonLogin}
-              titleStyle={{fontSize: 21, color: '#FF6700', alignContent: 'flex-start'}}
+              titleStyle={{
+                fontSize: 21,
+                color: '#FF6700',
+                alignContent: 'flex-start',
+              }}
               type="outline"
               title="Cancelar"
               onPress={() => this.mudarRota('Prestador', this.state.prestador)}
             />
           </View>
-          { show && <DateTimePicker value={new Date('2019-11-20T14:42:42')}
-                    mode={mode}
-                    is24Hour={true}
-                    display="default"
-                    onChange={(event, date) => this.setDate(event, date, mode)} />
-          }
+          {show && (
+            <DateTimePicker
+              value={new Date('2019-11-20T14:42:42')}
+              mode={mode}
+              is24Hour={true}
+              display="default"
+              onChange={(event, date) => this.setDate(event, date, mode)}
+            />
+          )}
         </ScrollView>
       </>
     );
