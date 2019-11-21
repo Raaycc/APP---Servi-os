@@ -3,7 +3,7 @@ import { GiftedChat } from 'react-native-gifted-chat';
 import { View, Text, AsyncStorage } from 'react-native';
 import {http} from '../../../../Service/auth';
 // import { Container } from './styles';
-
+import Header from '../../../../Components/Header/Header';
 export default class OpenedChat extends Component {
   
   state = {
@@ -51,8 +51,16 @@ export default class OpenedChat extends Component {
     }))
   }
 
+  mudarRota = () => {
+    this.props.navigation.navigate('Chat');
+  };
+
   render() {
     return (
+      <>
+      <View style={{ height: 40}}>
+          <Header mudarRota={() => this.mudarRota()} title={this.state.chat.provider.usuario}/>
+      </View>
       <GiftedChat
         messages={this.state.messages}
         onSend={messages => this.onSend(messages)}
@@ -60,6 +68,7 @@ export default class OpenedChat extends Component {
           _id: 1,
         }}
       />
+      </>
     )
   }
 }

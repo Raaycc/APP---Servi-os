@@ -35,9 +35,8 @@ export default class Chat extends Component {
             {
               this.state.chats.map((chat, index) => {
                 return (
-                  <>
+                  <View key={index}>
                 <List.Item
-                  key={index}
                   onPress={() => this.props.navigation.push('OpenedChat', {
                     chat
                   })}
@@ -46,7 +45,7 @@ export default class Chat extends Component {
                   left={() => <List.Icon icon="person" />}
                   />
                   <Divider />
-                  </>
+                  </View>
                 );
               })
             }
