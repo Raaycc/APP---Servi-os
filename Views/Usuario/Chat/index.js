@@ -40,7 +40,7 @@ export default class Chat extends Component {
                   onPress={() => this.props.navigation.push('OpenedChat', {
                     chat
                   })}
-                  title="Jubileu"
+                  title={chat.provider.usuario}
                   description={chat.last_message}
                   left={() => <List.Icon icon="person" />}
                   />

@@ -103,16 +103,13 @@ class Home extends React.Component {
                 <Text style={styles.textTag}>#pintor</Text>
               </View>
               <View style={styles.tag}>
-                <Text style={styles.textTag}>#babá</Text>
+                <Text style={styles.textTag}>#eletricista</Text>
               </View>
               <View style={styles.tag}>
                 <Text style={styles.textTag}>#encanador</Text>
               </View>
               <View style={styles.tag}>
-                <Text style={styles.textTag}>#diarista</Text>
-              </View>
-              <View style={styles.tag}>
-                <Text style={styles.textTag}>#cozinheiro</Text>
+                <Text style={styles.textTag}>#auxiliar</Text>
               </View>
             </View>
           </ScrollView>
