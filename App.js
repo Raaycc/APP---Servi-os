@@ -11,6 +11,10 @@ import Contrato from './Views/Usuario/Contrato';
 import Contratar from './Views/Usuario/Contrato/contratar';
 import Chat from './Views/Usuario/Chat';
 import OpenedChat from './Views/Usuario/Chat/OpenedChat';
+import HomePrestador from './Views/Prestador';
+import ChatPrestador from './Views/Prestador/Chat';
+import ContratoPrestador from './Views/Prestador/Contrato';
+import PerfilPrestador from './Views/Prestador/Perfil';
 
 const LoginStack = createStackNavigator(
   {
@@ -22,7 +26,7 @@ const LoginStack = createStackNavigator(
   },
 );
 
-const AuthStack = createStackNavigator(
+const UsuarioStack = createStackNavigator(
   {
     Home: Home,
     Prestador: Prestador,
@@ -41,12 +45,30 @@ const AuthStack = createStackNavigator(
   },
 );
 
+const PrestadorStack = createStackNavigator(
+  {
+    Home: HomePrestador,
+    Chat: ChatPrestador,
+    Perfil: PerfilPrestador,
+    Contrato: ContratoPrestador
+  },
+  {
+    initialRouteName: 'Home',
+    defaultNavigationOptions: {
+      header: null,
+    },
+  },
+);
+
 const App = createSwitchNavigator({
   Principal: {
     screen: LoginStack,
   },
-  Auth: {
-    screen: AuthStack,
+  UsuarioStack: {
+    screen: UsuarioStack,
+  },
+  PrestadorStack: {
+    screen: PrestadorStack,
   },
 });
 
