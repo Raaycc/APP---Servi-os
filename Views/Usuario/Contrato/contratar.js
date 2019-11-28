@@ -21,7 +21,7 @@ export default class Contrato extends React.Component {
     this.state = {
       prestador: '',
       valor: '',
-      descricao: '',
+      descricao: 'sim',
       data: dayjs().format('DD/MM/YY'),
       hora: new Date().toLocaleTimeString('BRT'),
       mode: 'date',
@@ -103,6 +103,8 @@ export default class Contrato extends React.Component {
           servico +
           '  - id:' +
           usuario.id,
+        dataLoka,
+        valor,
       );
       const response = await http.post(`usuario/${usuario.id}/contrato`, {
         id_prestador: prestador.id,
@@ -150,12 +152,14 @@ export default class Contrato extends React.Component {
             <Input
               placeholder="Descrição"
               value={this.state.descricao}
-              onChange={value => this.setState({descricao: value})}
+              onChange={e => {
+                this.setState({descricao: e.nativeEvent.text});
+              }}
             />
             <Input
               placeholder="Valor"
               value={'R$ ' + this.state.valor}
-              onChange={value => this.setState({valor: value})}
+              onChange={e => this.setState({valor: e.nativeEvent.text})}
             />
             <TouchableWithoutFeedback
               styles={styles.buttonLogin}
