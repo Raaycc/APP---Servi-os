@@ -15,6 +15,9 @@ import HomePrestador from './Views/Prestador';
 import ChatPrestador from './Views/Prestador/Chat';
 import ContratoPrestador from './Views/Prestador/Contrato';
 import PerfilPrestador from './Views/Prestador/Perfil';
+import OpenedChatPrestador from './Views/Prestador/Chat/OpenedChat';
+import EditarContrato from './Views/Prestador/EditarContrato';
+import NovoContrato from './Views/Prestador/NovoContrato';
 
 const LoginStack = createStackNavigator(
   {
@@ -50,7 +53,10 @@ const PrestadorStack = createStackNavigator(
     Home: HomePrestador,
     Chat: ChatPrestador,
     Perfil: PerfilPrestador,
-    Contrato: ContratoPrestador
+    Contrato: ContratoPrestador,
+    OpenedChat: OpenedChatPrestador,
+    EditarContrato: EditarContrato,
+    NovoContrato: NovoContrato
   },
   {
     initialRouteName: 'Home',

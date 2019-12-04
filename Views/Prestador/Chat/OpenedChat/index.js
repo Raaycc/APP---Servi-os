@@ -26,7 +26,7 @@ export default class OpenedChat extends Component {
           text: chat.content,
           createdAt: new Date(data),
           user: {
-            _id: chat.provider ? 2 : 1,
+            _id: chat.provider ? 1 : 2,
             name: chat.provider ? this.state.chat.client.usuario : usuario.usuario,
           }
         });
