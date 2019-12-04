@@ -106,7 +106,7 @@ export default class Contrato extends React.Component {
         dataLoka,
         valor,
       );
-      const response = await http.post(`usuario/${usuario.id}/contrato`, {
+      const response = await http.post(`contrato`, {
         id_prestador: prestador.id,
         id_servico: servico,
         id_cliente: usuario.id,

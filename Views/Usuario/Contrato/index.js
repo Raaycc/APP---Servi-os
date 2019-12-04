@@ -51,9 +51,7 @@ class Contrato extends Component {
 
   requestContratos = async () => {
     try {
-      const response = await http.get(
-        `usuario/${this.state.usuario.id}/contrato`,
-      );
+      const response = await http.get(`contrato`);
       // alert(JSON.stringify(response));
       if (response.status === 200) {
         const lista = response.data;
@@ -64,11 +62,21 @@ class Contrato extends Component {
     }
   };
 
-  deletarContrato = async id => {
+  cancelarContrato = async id => {
     try {
-      const response = await http.delete(
-        `usuario/${this.state.usuario.id}/contrato/${id}`,
-      );
+      const response = await http.put(`contrato/${id}`, {status: 4});
+      // alert(JSON.stringify(response));
+      if (response.status === 200) {
+        this.requestContratos();
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  confirmarContrato = async id => {
+    try {
+      const response = await http.put(`contrato/${id}`, {status: 6});
       // alert(JSON.stringify(response));
       if (response.status === 200) {
         this.requestContratos();
@@ -88,6 +96,15 @@ class Contrato extends Component {
     return nome;
   };
 
+  getStatus = status => {
+    if (status === 1) return 'em aberto';
+    if (status === 2) return 'em andamento';
+    if (status === 3) return 'recusado pelo prestador';
+    if (status === 4) return 'cancelado pelo cliente';
+    if (status === 5) return 'cancelado pelo prestador';
+    if (status === 6) return 'concluido';
+  };
+
   render() {
     console.log(this.state.lista);
     const {lista} = this.state;
@@ -104,22 +121,34 @@ class Contrato extends Component {
                 <Card.Content>
                   <Text>Data: {contrato.data}</Text>
                   <Text>Descrição: {contrato.descricao}</Text>
-                  {contrato.status === 1 && (
-                    <Chip
-                      style={{
-                        backgroundColor: '#4287f5',
-                        margin: 20,
-                        alignItems: 'center',
-                      }}>
-                      <Text style={{color: '#fff'}}>aguardando</Text>
-                    </Chip>
-                  )}
+
+                  <Chip
+                    style={{
+                      backgroundColor:
+                        contrato.status > 2 && contrato.status <= 5
+                          ? 'red'
+                          : contrato.status === 6
+                          ? 'green'
+                          : '#4287f5',
+                      margin: 20,
+                      alignItems: 'center',
+                    }}>
+                    <Text style={{color: '#fff'}}>
+                      {this.getStatus(contrato.status)}
+                    </Text>
+                  </Chip>
                 </Card.Content>
                 <Card.Actions>
-                  <Button onPress={() => this.deletarContrato(contrato.id)}>
-                    Cancelar
-                  </Button>
-                  <Button>Confirmar</Button>
+                  {contrato.status <= 2 && (
+                    <Button onPress={() => this.cancelarContrato(contrato.id)}>
+                      Cancelar
+                    </Button>
+                  )}
+                  {contrato.status === 2 && (
+                    <Button onPress={() => this.confirmarContrato(contrato.id)}>
+                      Confirmar
+                    </Button>
+                  )}
                 </Card.Actions>
               </Card>
             ))}

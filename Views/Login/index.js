@@ -20,7 +20,7 @@ export default class Login extends Component {
     this.state = {
       loading: false,
       text: '',
-      login: 'maria.penha@gmail.com',
+      login: 'jmesquita@gmail.com',
       senha: '123',
     };
   }
@@ -38,7 +38,7 @@ export default class Login extends Component {
       console.log(response.data);
       logar(response.data);
       if (response.status === 200) {
-        if(response.data.usuario.prestador) {
+        if (response.data.usuario.prestador) {
           this.props.navigation.navigate('PrestadorStack');
         } else {
           this.props.navigation.navigate('UsuarioStack');
