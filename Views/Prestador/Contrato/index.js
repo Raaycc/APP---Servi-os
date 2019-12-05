@@ -51,9 +51,7 @@ class Contrato extends Component {
 
   requestContratos = async () => {
     try {
-      const response = await http.get(
-        `/contrato`,
-      );
+      const response = await http.get(`/contrato`);
       // alert(JSON.stringify(response));
       if (response.status === 200) {
         const lista = response.data;
@@ -66,18 +64,15 @@ class Contrato extends Component {
 
   cancelarContrato = async (id, status) => {
     try {
-
       let novoStatus = status;
-      if(status == 1) {
+      if (status == 1) {
         novoStatus = 3;
-      }else {
+      } else {
         novoStatus = 5;
       }
 
-      const response = await http.put(
-        `/contrato/${id}`
-      , {
-        status: novoStatus
+      const response = await http.put(`/contrato/${id}`, {
+        status: novoStatus,
       });
       // alert(JSON.stringify(response));
       if (response.status === 200) {
@@ -88,19 +83,17 @@ class Contrato extends Component {
     }
   };
 
-  aceitarContrato = async (id, status) =>  {
+  aceitarContrato = async (id, status) => {
     try {
       let novoStatus = status;
-      if(status == 1) {
+      if (status == 1) {
         novoStatus = 2;
-      }else {
+      } else {
         novoStatus = 6;
       }
 
-      const response = await http.put(
-        `/contrato/${id}`
-      , {
-        status: novoStatus
+      const response = await http.put(`/contrato/${id}`, {
+        status: novoStatus,
       });
       // alert(JSON.stringify(response));
       if (response.status === 200) {
@@ -109,7 +102,7 @@ class Contrato extends Component {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 
   getNome = id => {
     let nome = '';
@@ -140,7 +133,12 @@ class Contrato extends Component {
                   {contrato.status === 1 && (
                     <Chip
                       style={{
-                        backgroundColor: '#4287f5',
+                        backgroundColor:
+                          contrato.status > 2 && contrato.status <= 5
+                            ? 'red'
+                            : contrato.status === 6
+                            ? 'green'
+                            : '#4287f5',
                         margin: 20,
                         alignItems: 'center',
                       }}>
@@ -150,17 +148,27 @@ class Contrato extends Component {
                   {contrato.status === 2 && (
                     <Chip
                       style={{
-                        backgroundColor: '#4287f5',
+                        backgroundColor:
+                          contrato.status > 2 && contrato.status <= 5
+                            ? 'red'
+                            : contrato.status === 6
+                            ? 'green'
+                            : '#4287f5',
                         margin: 20,
                         alignItems: 'center',
                       }}>
                       <Text style={{color: '#fff'}}>Em andamento</Text>
                     </Chip>
                   )}
-                  {contrato.status > 2 && contrato.status < 6&& (
+                  {contrato.status > 2 && contrato.status < 6 && (
                     <Chip
                       style={{
-                        backgroundColor: '#4287f5',
+                        backgroundColor:
+                          contrato.status > 2 && contrato.status <= 5
+                            ? 'red'
+                            : contrato.status === 6
+                            ? 'green'
+                            : '#4287f5',
                         margin: 20,
                         alignItems: 'center',
                       }}>
@@ -170,7 +178,12 @@ class Contrato extends Component {
                   {contrato.status == 6 && (
                     <Chip
                       style={{
-                        backgroundColor: '#4287f5',
+                        backgroundColor:
+                          contrato.status > 2 && contrato.status <= 5
+                            ? 'red'
+                            : contrato.status === 6
+                            ? 'green'
+                            : '#4287f5',
                         margin: 20,
                         alignItems: 'center',
                       }}>
@@ -179,20 +192,20 @@ class Contrato extends Component {
                   )}
                 </Card.Content>
                 <Card.Actions>
-                  {
-                    contrato.status <= 2
-                    ?
+                  {contrato.status <= 2 ? (
                     <Button onPress={() => this.cancelarContrato(contrato.id)}>
                       Cancelar
                     </Button>
-                    : null
-                  }
-                  
-                  {
-                    contrato.status <= 2 ? 
-                    <Button onPress={() => this.aceitarContrato(contrato.id, contrato.status)}>Confirmar</Button>
-                    : null
-                  }
+                  ) : null}
+
+                  {contrato.status <= 2 ? (
+                    <Button
+                      onPress={() =>
+                        this.aceitarContrato(contrato.id, contrato.status)
+                      }>
+                      Confirmar
+                    </Button>
+                  ) : null}
                 </Card.Actions>
               </Card>
             ))}

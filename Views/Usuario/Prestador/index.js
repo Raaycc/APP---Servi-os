@@ -32,23 +32,23 @@ class Prestador extends React.Component {
 
   requestServicos = async () => {
     // try {
-      const { id } = this.state.prestador;
-      const response = await http.get(`servico/${id}/listar`);
-      // alert(JSON.stringify(response));
-      if (response.status === 200) {
-        const servicos = response.data;
-        console.log(servicos);
-        this.setState({servicos});
-      }else {
-        console.log(response.data);
-      }
+    const {id} = this.state.prestador;
+    const response = await http.get(`servico/${id}/listar`);
+    // alert(JSON.stringify(response));
+    if (response.status === 200) {
+      const servicos = response.data;
+      console.log(servicos);
+      this.setState({servicos});
+    } else {
+      console.log(response.data);
+    }
     // } catch (e) {
     //   console.log(`servico/${this.state.prestador.id}/listar`);
     //   console.log(e);
     // }
   };
 
-  componentDidMount = async() => {
+  componentDidMount = async () => {
     await this.setPrestador();
     this.requestServicos();
   };
@@ -82,8 +82,7 @@ class Prestador extends React.Component {
               <View style={styles.col}>
                 <Text style={styles.userName}>{prestador.usuario}</Text>
                 <Text style={{paddingLeft: 20, paddingTop: 10, color: '#fff'}}>
-                  <Icon name="star" />
-                  {' ' + prestador.nota}
+                  <Icon name="star" /> 5.0
                 </Text>
                 <Text style={{paddingLeft: 20, paddingTop: 10, color: '#fff'}}>
                   {prestador.prestador && (
@@ -98,7 +97,10 @@ class Prestador extends React.Component {
           </View>
           <View style={styles.col}>
             <Text style={styles.title}>Descrição</Text>
-            <Text style={styles.descricao}>{prestador.descricao}</Text>
+            <Text style={styles.descricao}>
+              {prestador.descricao ||
+                'Alguma descrição sobre esse prestador...'}
+            </Text>
           </View>
           {servicos &&
             servicos.map(servico => (
