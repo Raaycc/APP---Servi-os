@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  AsyncStorage,
-} from 'react-native';
+import {View, StyleSheet, ScrollView, AsyncStorage} from 'react-native';
 import {Button, Input} from 'react-native-elements';
 import {http} from '../../../Service/auth';
 import Header from '../../../Components/Header/Header';
@@ -37,21 +32,17 @@ export default class Contrato extends React.Component {
     this.setState({
       servico,
       nome: servico.nome,
-      valor: servico.valorBase
+      valor: servico.valorBase,
     });
   };
 
   EditarContrato = async () => {
     try {
-      const {
-        valor,
-        nome,
-        servico
-      } = this.state;
+      const {valor, nome, servico} = this.state;
 
       const response = await http.put(`servico/${servico.id}`, {
         nome: nome,
-        valorBase: valor
+        valorBase: valor,
       });
 
       console.log(response);
@@ -82,8 +73,8 @@ export default class Contrato extends React.Component {
     return (
       <>
         <Header
-          title="Criar Contrato"
-          mudarRota={() => this.mudarRota('Contrato')}
+          title="Editar Serviço"
+          mudarRota={() => this.mudarRota('Home')}
         />
         <ScrollView>
           <View style={styles.viewLogin}>
@@ -97,7 +88,9 @@ export default class Contrato extends React.Component {
             <Input
               placeholder="Valor"
               value={'R$ ' + this.state.valor}
-              onChange={e => this.setState({valor: e.nativeEvent.text.split(' ')[1]})}
+              onChange={e =>
+                this.setState({valor: e.nativeEvent.text.split(' ')[1]})
+              }
             />
             <Button
               buttonStyle={[styles.buttonLogin, {backgroundColor: '#FF6700'}]}

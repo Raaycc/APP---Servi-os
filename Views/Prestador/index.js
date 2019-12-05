@@ -1,5 +1,11 @@
 import React from 'react';
-import {View, BackHandler, StyleSheet, ScrollView, AsyncStorage} from 'react-native';
+import {
+  View,
+  BackHandler,
+  StyleSheet,
+  ScrollView,
+  AsyncStorage,
+} from 'react-native';
 import {
   Colors,
   Avatar,
@@ -9,7 +15,7 @@ import {
   Card,
   Paragraph,
   List,
-  Chip
+  Chip,
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {http} from '../../Service/auth';
@@ -26,32 +32,32 @@ class Prestador extends React.Component {
 
   setPrestador = async () => {
     let id = 6;
-    const prestador = JSON.parse(await AsyncStorage.getItem("usuario"));
+    const prestador = JSON.parse(await AsyncStorage.getItem('usuario'));
     console.log(prestador);
     await this.setState({
-        prestador
+      prestador,
     });
   };
 
   requestServicos = async () => {
     // try {
-      const { id } = this.state.prestador;
-      const response = await http.get(`servico/${id}/listar`);
-      // alert(JSON.stringify(response));
-      if (response.status === 200) {
-        const servicos = response.data;
-        console.log(servicos);
-        this.setState({servicos});
-      }else {
-        console.log(response.data);
-      }
+    const {id} = this.state.prestador;
+    const response = await http.get(`servico/${id}/listar`);
+    // alert(JSON.stringify(response));
+    if (response.status === 200) {
+      const servicos = response.data;
+      console.log(servicos);
+      this.setState({servicos});
+    } else {
+      console.log(response.data);
+    }
     // } catch (e) {
     //   console.log(`servico/${this.state.prestador.id}/listar`);
     //   console.log(e);
     // }
   };
 
-  componentDidMount = async() => {
+  componentDidMount = async () => {
     await this.setPrestador();
     this.requestServicos();
   };
@@ -82,8 +88,7 @@ class Prestador extends React.Component {
               <View style={styles.col}>
                 <Text style={styles.userName}>{prestador.usuario}</Text>
                 <Text style={{paddingLeft: 20, paddingTop: 10, color: '#fff'}}>
-                  <Icon name="star" />
-                  {' ' + prestador.nota}
+                  <Icon name="star" /> 5.0
                 </Text>
                 <Text style={{paddingLeft: 20, paddingTop: 10, color: '#fff'}}>
                   {prestador.prestador && (
@@ -98,18 +103,18 @@ class Prestador extends React.Component {
           </View>
           <View style={styles.col}>
             <Text style={styles.title}>Descrição</Text>
-            <Text style={styles.descricao}>{prestador.descricao}</Text>
+            <Text style={styles.descricao}>
+              {prestador.descricao ||
+                'Alguma descrição sobre esse prestador...'}
+            </Text>
           </View>
           <View style={styles.row}>
             <Text style={styles.title}>Serviços</Text>
           </View>
           <View>
             <Button
-              onPress={() =>
-                this.mudarRota(
-                  'NovoContrato'
-                )
-              }>
+              style={styles.buttonNovo}
+              onPress={() => this.mudarRota('NovoContrato')}>
               Novo
             </Button>
           </View>
@@ -128,10 +133,7 @@ class Prestador extends React.Component {
                   <Card.Actions>
                     <Button
                       onPress={() =>
-                        this.mudarRota(
-                          'EditarContrato',
-                          servico.id,
-                        )
+                        this.mudarRota('EditarContrato', servico.id)
                       }>
                       Editar
                     </Button>
@@ -167,7 +169,7 @@ const styles = StyleSheet.create({
   header: {
     padding: 20,
     backgroundColor: '#FF6700',
-    height: 250,
+    height: 150,
   },
   userName: {fontSize: 30, marginLeft: 20, marginTop: 10, color: '#fff'},
   card: {margin: 10},
@@ -178,6 +180,15 @@ const styles = StyleSheet.create({
   },
   descricao: {
     padding: 10,
+  },
+  buttonNovo: {
+    borderRadius: 5,
+    borderColor: '#FF6700',
+    height: 50,
+    borderWidth: 1,
+    marginLeft: 100,
+    marginRight: 100,
+    paddingTop: 5,
   },
 });
 
