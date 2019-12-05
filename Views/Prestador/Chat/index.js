@@ -18,14 +18,14 @@ export default class Chat extends Component {
   };
 
   componentDidMount = async () => {
-
-    const request = await http.get('chat');
+    setInterval(async () => {
+      const request = await http.get('chat');
     if (request.status === 200) {
-      console.log(request.data);
       this.setState({chats: request.data});
     }else {
       console.log(request.status);
     }
+    }, 3000)
   }
 
   render() {

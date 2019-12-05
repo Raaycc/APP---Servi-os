@@ -10,17 +10,20 @@ export default class OpenedChat extends Component {
     chat: this.props.navigation.getParam('chat'),
     messages: [],
   }
-  
-  componentDidMount = async () =>  {
-    const usuario = await AsyncStorage.getItem('usuario');
-    console.log(usuario)
 
+  componentDidMount = () => {
+    setInterval(() => {
+      this.getDate();
+    }, 3000) 
+  }
+  
+  getDate = async () =>  {
+    const usuario = await AsyncStorage.getItem('usuario');
     const request = await http.get('chat/' + this.state.chat.id);
     if (request.status === 200) {
       let messages = [];
       request.data.map(chat => {
         let data = chat.created_at.split('-').join('/');
-        console.log(data);
         messages.push({
           _id: chat.id,
           text: chat.content,
@@ -58,7 +61,7 @@ export default class OpenedChat extends Component {
   render() {
     return (
       <>
-      <View style={{ height: 40}}>
+      <View style={{ height: 40, zIndex: 6}}>
           <Header mudarRota={() => this.mudarRota()} title={this.state.chat.provider.usuario}/>
       </View>
       <GiftedChat
